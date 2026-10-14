@@ -180,6 +180,132 @@
     html { scroll-behavior:auto; }
     *, *::before, *::after { transition:none !important; }
   }
+
+  /* Chi & Kel scrapbook refresh: purple, ivory and antique gold */
+  :root {
+    --forest: #382044;
+    --forest-deep: #24132e;
+    --sage: #765184;
+    --sage-pale: #f1e8f4;
+    --ivory: #f8f3ee;
+    --paper: #fffdf9;
+    --gold: #c5a15e;
+    --ink: #382d3c;
+    --muted: #827487;
+    --line: #e6d8e8;
+    --shadow: 0 16px 42px rgba(54, 31, 65, .10);
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 8% 6%, rgba(197,161,94,.16), transparent 24rem),
+      radial-gradient(ellipse at 95% 27%, rgba(118,81,132,.13), transparent 28rem),
+      linear-gradient(180deg,#fbf7f2 0%,#f5edf6 52%,#fbf7f2 100%);
+  }
+  .topline { height:5px; background:linear-gradient(90deg,#2c1837,#765184,#d8bd82,#765184,#2c1837); }
+  .page { max-width:1320px; padding-left:clamp(16px,3vw,42px); padding-right:clamp(16px,3vw,42px); }
+  header { padding:54px 0 28px; }
+  header:before {
+    content:"C  ✦  K"; display:grid; place-items:center; width:64px; height:64px; margin:0 auto 18px;
+    border:1px solid #c5a15e; border-radius:50%; color:#4a2c56; background:rgba(255,253,249,.76);
+    font:italic 17px Georgia,serif; letter-spacing:.06em; box-shadow:0 4px 18px rgba(54,31,65,.07);
+  }
+  .eyebrow { color:#765184; letter-spacing:.28em; }
+  h1 { color:#382044; font-size:clamp(48px,6.5vw,82px); letter-spacing:-.035em; }
+  .heart { color:#c5a15e; }
+  .subtitle { color:#766879; font-size:16px; }
+  .flourish { margin-top:20px; }
+  .pill { border-color:#e3d5e7; background:rgba(255,253,249,.8); color:#6f5b78; padding:9px 15px; }
+  .section-head { margin-top:36px; }
+  .section-head h2,.gallery-top h3 { color:#382044; }
+  .small-label { color:#a18348; letter-spacing:.2em; }
+  .workspace { grid-template-columns:minmax(300px,.78fr) minmax(0,1.22fr); gap:clamp(22px,3vw,42px); }
+  .form-paper {
+    border:1px solid #e5d8e8; border-radius:7px; padding:clamp(22px,2.5vw,34px);
+    box-shadow:0 18px 46px rgba(54,31,65,.10), inset 0 0 0 5px rgba(255,255,255,.45);
+    background-color:#fffdf9;
+    background-image:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(197,161,94,.08) 32px);
+  }
+  .form-paper:before { background:rgba(197,161,94,.4); }
+  .form-title { color:#382044; font-size:31px; }
+  .form-desc { color:#827487; }
+  label { color:#57445f; }
+  input[type=text],textarea { border-color:#ded0e3; background:#fffdfa; border-radius:6px; }
+  input[type=text]:focus,textarea:focus { border-color:#765184; box-shadow:0 0 0 3px rgba(118,81,132,.14); }
+  .attachment-tile { border-color:#e1d3e8; background:linear-gradient(145deg,#fffdfa,#f5edf8); color:#382044; border-radius:12px; }
+  .attachment-icon { background:#e9ddef; color:#684178; }
+  .attachment-title { color:#382044; }
+  .attachment-chevron { color:#8d6a9e; }
+  .attachment-panel { border-color:#e5d8e8; background:#fdf9fe; }
+  .voice-card { border-color:#e5d8e8; background:linear-gradient(135deg,#fffdfa,#f4ebf7); }
+  .voice-heading,.voice-btn,.voice-timer,.memory-audio-label { color:#684178; }
+  .voice-heading .mic { background:#e9ddef; color:#684178; }
+  .voice-btn { border-color:#cdb9d7; }
+  .voice-btn.recording { background:#684178; border-color:#684178; }
+  .primary { background:#382044; box-shadow:0 4px 0 #24132e; border-radius:5px; }
+  .primary:hover { background:#654276; }
+  .gallery-area { position:relative; min-width:0; padding:0 2px; }
+  .gallery-top { align-items:end; padding:0 3px 15px; border-bottom:1px solid #e5d8e8; margin-bottom:20px; }
+  .gallery-top h3 { font-size:clamp(23px,2.3vw,31px); }
+  .gallery-top span { color:#a18348; letter-spacing:.13em; font-size:9px; }
+  .collage { columns:2; column-gap:22px; }
+  .memory { margin-bottom:24px; padding:0 2px 2px; }
+  .polaroid,.memory-photo-note {
+    border:1px solid #eee5e8; border-radius:2px; background:#fffefa;
+    box-shadow:0 10px 22px rgba(54,31,65,.13),0 2px 4px rgba(54,31,65,.06);
+    transition:transform .22s ease,box-shadow .22s ease;
+  }
+  .memory:hover .polaroid,.memory:hover .memory-photo-note,.memory:hover .note { box-shadow:0 16px 30px rgba(54,31,65,.17); }
+  .polaroid { padding:10px 10px 38px; }
+  .polaroid img,.memory-photo-note img { background:#eee5ef; }
+  .polaroid .caption { color:#60496b; font-size:14px; }
+  .tape { background:rgba(197,161,94,.46); }
+  .memory-photo-note { padding:9px 9px 32px; }
+  .memory-photo-note p { color:#4b3a50; font-size:14px; line-height:1.55; margin:11px 4px 0; overflow-wrap:anywhere; }
+  .memory-photo-note .byline { color:#89778e; font-size:10px; letter-spacing:.025em; margin-top:8px; }
+  .note {
+    border:1px solid rgba(118,81,132,.08); border-radius:2px; padding:23px 20px 20px;
+    background:linear-gradient(145deg,#f0e5f3,#e9dced); color:#4c3555;
+    box-shadow:0 9px 20px rgba(54,31,65,.11);
+  }
+  .note.cream { background:linear-gradient(145deg,#fff8eb,#f4e8d6); color:#55424d; }
+  .note.blush { background:linear-gradient(145deg,#f7edf7,#efe2f0); color:#563f60; }
+  .note:before { background:rgba(255,253,249,.76); }
+  .note .message { font-size:16px; line-height:1.65; }
+  .note .byline { color:#7d6984; font-size:12px; }
+  .note .tiny-heart { color:#b58d48; }
+  .memory-audio { border-top:1px dashed #d9c7df; padding-top:12px; margin:14px 5px 0; }
+  .memory-audio-label { font-size:11px; line-height:1.45; margin-bottom:7px; }
+  .memory-audio audio { width:100%; accent-color:#765184; }
+  .gallery-empty { border:1px dashed #d9c8e1; border-radius:7px; padding:28px 20px; background:rgba(255,253,249,.72); color:#827487; }
+  .bottom-note { color:#827487; line-height:1.8; }
+  .bottom-note .gold { color:#b58d48; }
+  footer { border-color:#e3d6e6; color:#827487; }
+  footer strong { color:#382044; font-size:22px; }
+  .toast { background:#f1e8f4; color:#382044; border-left-color:#765184; border-radius:4px; }
+  .demo-tag { background:#382044; }
+  @media (max-width:760px) {
+    header { padding-top:35px; }
+    header:before { width:56px; height:56px; font-size:15px; margin-bottom:15px; }
+    .workspace { grid-template-columns:1fr; gap:34px; }
+    .gallery-top { margin-bottom:16px; }
+    .collage { columns:2; column-gap:14px; }
+    .memory { margin-bottom:17px; }
+    .memory-photo-note { padding:6px 6px 27px; }
+    .memory-photo-note p { font-size:12px; }
+    .note { padding:18px 14px 15px; }
+    .note .message { font-size:14px; }
+  }
+  @media (max-width:420px) {
+    .collage { column-gap:10px; }
+    .gallery-top span { display:none; }
+    .memory-photo-note p { font-size:11px; }
+    .note { padding:15px 11px 13px; }
+    .note .message { font-size:12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .memory:hover .polaroid,.memory:hover .memory-photo-note,.memory:hover .note { transform:none; }
+  }
+
 </style>
 </head>
 <body>
@@ -266,46 +392,8 @@
         </div>
         <span>THE SCRAPBOOK · ♡</span>
       </div>
-      <div class="collage" id="guestbook-gallery">
-        <article class="memory">
-          <div class="polaroid" style="--rot:2deg">
-            <span class="tape"></span>
-            <img alt="Sample memory: garden flowers" src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=80">
-            <div class="caption">A day full of little joys</div>
-          </div>
-        </article>
-        <article class="memory">
-          <div class="note" style="--rot:-2deg">
-            <div class="message">“May your home always be filled with laughter, patience, friendship, and a love that grows deeper every year.”</div>
-            <div class="byline">— With love, The Okafors</div><div class="tiny-heart">♡</div>
-          </div>
-        </article>
-        <article class="memory">
-          <div class="memory-photo-note" style="--rot:-2deg">
-            <img alt="Sample memory: warm celebration lights" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80">
-            <p>Here's to the beautiful chapter ahead ✨</p>
-            <div class="byline">A memory to keep</div>
-          </div>
-        </article>
-        <article class="memory">
-          <div class="note cream" style="--rot:2deg">
-            <div class="message">“Keep choosing each other, in the big moments and in the ordinary Tuesdays. Those are the days that make a life.”</div>
-            <div class="byline">— Love, J & M</div><div class="tiny-heart">♡</div>
-          </div>
-        </article>
-        <article class="memory">
-          <div class="polaroid" style="--rot:-1deg">
-            <span class="tape"></span>
-            <img alt="Sample memory: a bouquet of white flowers" src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=700&q=80">
-            <div class="caption">Forever starts here</div>
-          </div>
-        </article>
-        <article class="memory">
-          <div class="note blush" style="--rot:1deg">
-            <div class="message">“Wishing you a lifetime of adventures, answered prayers, and small moments that turn into favorite memories.”</div>
-            <div class="byline">— The Santos Family</div><div class="tiny-heart">♡</div>
-          </div>
-        </article>
+      <div class="collage" id="guestbook-gallery" aria-live="polite">
+        <div class="gallery-empty" style="column-span:all">The memory wall is waiting for its first approved wishes. ♡</div>
       </div>
     </section>
   </div>
@@ -313,7 +401,7 @@
   <p class="bottom-note"><span class="gold">♡</span><br>Thank you for being part of our story. We'll save a little piece of every kind word and memory.</p>
   <footer><strong>Chi & Kel</strong><br>May 29, 2027 · With love, always.</footer>
 </main>
-<div class="demo-tag">PURPLE THEME PREVIEW · SAMPLE CONTENT</div>
+
 <script type="module">
   import { createClient } from
     "https://esm.sh/@supabase/supabase-js@2";
@@ -337,9 +425,187 @@
   const messageInput = document.getElementById('guest-message');
   const wordCount = document.getElementById('word-count');
 
+
+  // Live memory wall: only approved entries are queried.
+  // Private media is displayed with short-lived signed URLs.
+  function normalizeStoragePath(value, bucketName) {
+    if (typeof value !== 'string') return '';
+    let path = value.trim().replace(/^\/+/, '');
+    // Accept either "file.jpg" or "bucket-name/file.jpg" in the database.
+    if (path.startsWith(`${bucketName}/`)) {
+      path = path.slice(bucketName.length + 1);
+    }
+    return path;
+  }
+
+  async function getSignedMediaUrl(bucketName, rawPath, label, entryId) {
+    const path = normalizeStoragePath(rawPath, bucketName);
+    if (!path) {
+      console.error(`[Guestbook] ${label}: empty storage path`, { entryId, rawPath });
+      return null;
+    }
+
+    const { data, error } = await supabase.storage
+      .from(bucketName)
+      .createSignedUrl(path, 60 * 60);
+
+    if (error || !data?.signedUrl) {
+      console.error(`[Guestbook] ${label}: signed URL failed`, {
+        entryId,
+        bucket: bucketName,
+        databasePath: rawPath,
+        requestedPath: path,
+        message: error?.message || 'No signed URL returned',
+        statusCode: error?.statusCode,
+        error
+      });
+      return null;
+    }
+
+    return data.signedUrl;
+  }
+
+  async function loadApprovedMemories() {
+    gallery.replaceChildren();
+    const loading = document.createElement('div');
+    loading.className = 'gallery-empty';
+    loading.style.columnSpan = 'all';
+    loading.textContent = 'Gathering the memories... ♡';
+    gallery.append(loading);
+
+    const { data: entries, error } = await supabase
+      .from('guestbook_entries')
+      .select('id, guest_name, message, photo_path, audio_path, created_at')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(100);
+
+    if (error) {
+      gallery.replaceChildren();
+      const errorBox = document.createElement('div');
+      errorBox.className = 'gallery-empty';
+      errorBox.style.columnSpan = 'all';
+      errorBox.textContent = 'The memory wall could not load right now. Please refresh in a moment.';
+      gallery.append(errorBox);
+      console.error('[Guestbook] Could not load approved entries:', error);
+      return;
+    }
+
+    gallery.replaceChildren();
+    if (!entries || entries.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'gallery-empty';
+      empty.style.columnSpan = 'all';
+      empty.textContent = 'The memory wall is waiting for its first approved wishes. ♡';
+      gallery.append(empty);
+      return;
+    }
+
+    for (const entry of entries) {
+      const card = document.createElement('article');
+      card.className = 'memory';
+      card.style.setProperty('--rot', `${(Math.random() * 3 - 1.5).toFixed(1)}deg`);
+
+      let photoShown = false;
+
+      if (entry.photo_path) {
+        const photoUrl = await getSignedMediaUrl(
+          'guestbook-photos', entry.photo_path, 'PHOTO', entry.id
+        );
+
+        if (photoUrl) {
+          const frame = document.createElement('div');
+          frame.className = 'memory-photo-note';
+          const img = document.createElement('img');
+          img.src = photoUrl;
+          img.alt = `Photo shared by ${entry.guest_name}`;
+          img.loading = 'lazy';
+          img.addEventListener('error', () => {
+            console.error('[Guestbook] Signed photo URL was created but image failed to load.', {
+              entryId: entry.id,
+              bucket: 'guestbook-photos'
+            });
+            img.alt = 'This photo could not be loaded right now.';
+            img.style.display = 'none';
+            const problem = document.createElement('p');
+            problem.textContent = 'Photo temporarily unavailable.';
+            frame.prepend(problem);
+          }, { once: true });
+
+          const noteText = document.createElement('p');
+          noteText.textContent = entry.message;
+          const credit = document.createElement('div');
+          credit.className = 'byline';
+          credit.textContent = `Shared with love by ${entry.guest_name}`;
+          frame.append(img, noteText, credit);
+          card.append(frame);
+          photoShown = true;
+        }
+      }
+
+      if (!photoShown) {
+        const note = document.createElement('div');
+        note.className = 'note';
+        const message = document.createElement('div');
+        message.className = 'message';
+        message.textContent = `“${entry.message}”`;
+        const byline = document.createElement('div');
+        byline.className = 'byline';
+        byline.textContent = `— ${entry.guest_name}`;
+        const heart = document.createElement('div');
+        heart.className = 'tiny-heart';
+        heart.textContent = '♡';
+        note.append(message, byline, heart);
+        card.append(note);
+      }
+
+      if (entry.audio_path) {
+        const audioUrl = await getSignedMediaUrl(
+          'guestbook-audio', entry.audio_path, 'AUDIO', entry.id
+        );
+
+        if (audioUrl) {
+          const wrap = document.createElement('div');
+          wrap.className = 'memory-audio';
+          const label = document.createElement('div');
+          label.className = 'memory-audio-label';
+          label.textContent = `♫ A little voice note from ${entry.guest_name}`;
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.preload = 'none';
+          audio.src = audioUrl;
+          audio.addEventListener('error', () => {
+            console.error('[Guestbook] Signed audio URL was created but audio failed to load.', {
+              entryId: entry.id,
+              bucket: 'guestbook-audio'
+            });
+            const unavailable = document.createElement('p');
+            unavailable.className = 'memory-audio-label';
+            unavailable.textContent = 'Voice note temporarily unavailable.';
+            wrap.append(unavailable);
+          }, { once: true });
+          wrap.append(label, audio);
+          card.append(wrap);
+        } else {
+          const wrap = document.createElement('div');
+          wrap.className = 'memory-audio';
+          const unavailable = document.createElement('div');
+          unavailable.className = 'memory-audio-label';
+          unavailable.textContent = 'Voice note could not be loaded.';
+          wrap.append(unavailable);
+          card.append(wrap);
+        }
+      }
+
+      gallery.append(card);
+    }
+  }
+
+  loadApprovedMemories();
+
   function countWords(value) {
     const trimmed = value.trim();
-    return trimmed ? trimmed.split(/\\s+/).length : 0;
+    return trimmed ? trimmed.split(/\s+/).length : 0;
   }
 
   messageInput.addEventListener('input', () => {
