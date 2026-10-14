@@ -470,27 +470,154 @@
     status.style.display = 'none';
   });
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const name = document.getElementById('guest-name').value.trim();
-    const message = messageInput.value.trim();
-    const file = photoInput.files && photoInput.files[0];
-    if (!name || !message) return;
-    if (countWords(message) > 250) {
-      status.style.display = 'block';
-      status.textContent = 'Please keep your well-wishes to 250 words or fewer.';
-      return;
+ form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const name = document.getElementById('guest-name').value.trim();
+  const message = messageInput.value.trim();
+  const photoFile = photoInput.files?.[0] || null;
+
+  if (!name || !message) {
+    status.style.display = 'block';
+    status.textContent = 'Please enter your name and message.';
+    return;
+  }
+
+  if (name.length > 80 || message.length > 5000 ||
+      countWords(message) > 250) {
+    status.style.display = 'block';
+    status.textContent =
+      'Please check your name and keep your message to 250 words or fewer.';
+    return;
+  }
+
+  if (photoFile && (
+      !['image/jpeg', 'image/png', 'image/webp'].includes(photoFile.type) ||
+      photoFile.size > 10 * 1024 * 1024
+  )) {
+    status.style.display = 'block';
+    status.textContent = 'Choose a JPG, PNG or WebP photo up to 10 MB.';
+    return;
+  }
+
+  if (voiceBlob && (
+      voiceBlob.size > 5 * 1024 * 1024 ||
+      voiceBlob.size === 0
+  )) {
+    status.style.display = 'block';
+    status.textContent =
+      'Your voice memo must be under 5 MB. Please record a shorter memo.';
+    return;
+  }
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  status.style.display = 'block';
+  status.textContent = 'Saving your wishes...';
+
+  let photoPath = null;
+  let audioPath = null;
+
+  async function uploadFile(file, kind) {
+    const contentType = file.type.split(';')[0];
+
+    const { data: authorization, error: authError } =
+      await supabase.functions.invoke('guestbook-upload-url', {
+        body: { kind, contentType }
+      });
+
+    if (authError) {
+      throw new Error('Could not authorize your file upload.');
     }
-    if (file && file.size > 10 * 1024 * 1024) {
-      status.style.display = 'block';
-      status.textContent = 'That photo is larger than 10 MB. Try a smaller image for this preview.';
-      return;
+
+    if (!authorization?.ok) {
+      throw new Error(
+        authorization?.error || 'Could not authorize your file upload.'
+      );
     }
-    if (voiceBlob && voiceBlob.size > 20 * 1024 * 1024) {
-      status.style.display = 'block';
-      status.textContent = 'Voice memos must be 20 MB or smaller in this preview.';
-      return;
+
+    const { data, error } = await supabase.storage
+      .from(authorization.bucket)
+      .uploadToSignedUrl(
+        authorization.path,
+        authorization.token,
+        file,
+        { contentType }
+      );
+
+    if (error) {
+      throw new Error('A file could not be uploaded. Please try again.');
     }
+
+    return data.path;
+  }
+
+  try {
+    if (photoFile) {
+      status.textContent = 'Uploading your photo...';
+      photoPath = await uploadFile(photoFile, 'photo');
+    }
+
+    if (voiceBlob) {
+      status.textContent = 'Uploading your voice memo...';
+
+      const audioType = voiceBlob.type.split(';')[0];
+      if (!['audio/webm', 'audio/mp4', 'audio/ogg'].includes(audioType)) {
+        throw new Error(
+          'Your browser created an unsupported audio format. Please try another browser.'
+        );
+      }
+
+      const audioFile = new File(
+        [voiceBlob],
+        `voice-note.${audioType.split('/')[1]}`,
+        { type: audioType }
+      );
+
+      audioPath = await uploadFile(audioFile, 'audio');
+    }
+
+    status.textContent = 'Saving your guestbook entry...';
+
+    const { data: result, error } =
+      await supabase.functions.invoke('submit-guestbook', {
+        body: {
+          guest_name: name,
+          message,
+          photo_path: photoPath,
+          audio_path: audioPath
+        }
+      });
+
+    if (error) {
+      throw new Error('Your entry could not be saved. Please try again.');
+    }
+
+    if (!result?.ok) {
+      throw new Error(
+        result?.error || 'Your entry could not be saved.'
+      );
+    }
+
+    status.textContent =
+      'Thank you for sharing your love! Your entry has been submitted for review. ♡';
+
+    form.reset();
+    preview.style.display = 'none';
+    preview.removeAttribute('src');
+    clearVoicePreview();
+    wordCount.textContent = '0 / 250 words';
+    voiceStatus.textContent =
+      'No recording yet. Your voice note is optional.';
+
+  } catch (error) {
+    status.textContent = error.message ||
+      'Something went wrong. Please try again.';
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
 
     // Local-only design demo: append a mock memory card in this browser.
     // No data is sent to a server or saved to Supabase.
@@ -552,6 +679,20 @@
     stopBtn.disabled = true;
     recordBtn.classList.remove('recording');
   });
+<script type="module">
+  import { createClient } from
+    "https://esm.sh/@supabase/supabase-js@2";
+
+  const SUPABASE_URL =
+    "https://noqtkcdvmafbizrveqva.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_dZvjAIHgaWSd7lTPQOqXHw_JMZoz9CO";
+
+  const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
 </script>
 </body>
 </html>
