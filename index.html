@@ -314,7 +314,21 @@
   <footer><strong>Chi & Kel</strong><br>May 29, 2027 · With love, always.</footer>
 </main>
 <div class="demo-tag">PURPLE THEME PREVIEW · SAMPLE CONTENT</div>
-<script>
+<script type="module">
+  import { createClient } from
+    "https://esm.sh/@supabase/supabase-js@2";
+
+  const SUPABASE_URL =
+    "https://noqtkcdvmafbizrveqva.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_dZvjAIHgaWSd7lTPQOqXHw_JMZoz9CO";
+
+  const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
   const form = document.getElementById('guestbook-form');
   const photoInput = document.getElementById('guest-photo');
   const preview = document.getElementById('photo-preview');
@@ -619,80 +633,6 @@
 });
 
 
-    // Local-only design demo: append a mock memory card in this browser.
-    // No data is sent to a server or saved to Supabase.
-    const card = document.createElement('article');
-    card.className = 'memory';
-    const safeMessage = document.createElement('div');
-    safeMessage.className = 'message';
-    safeMessage.textContent = '“' + message + '”';
-    const byline = document.createElement('div');
-    byline.className = 'byline';
-    byline.textContent = '— ' + name;
-
-    if (file) {
-      const frame = document.createElement('div');
-      frame.className = 'memory-photo-note';
-      frame.style.setProperty('--rot', (Math.random() * 4 - 2).toFixed(1) + 'deg');
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      img.alt = 'Photo shared by ' + name;
-      const note = document.createElement('p');
-      note.textContent = message;
-      const credit = document.createElement('div');
-      credit.className = 'byline';
-      credit.textContent = 'Shared by ' + name;
-      frame.append(img, note, credit);
-      card.append(frame);
-    } else {
-      const note = document.createElement('div');
-      note.className = 'note';
-      note.style.setProperty('--rot', (Math.random() * 4 - 2).toFixed(1) + 'deg');
-      note.append(safeMessage, byline);
-      const heart = document.createElement('div');
-      heart.className = 'tiny-heart';
-      heart.textContent = '♡';
-      note.append(heart);
-      card.append(note);
-    }
-    if (voiceBlob) {
-      const audioWrap = document.createElement('div');
-      audioWrap.className = 'memory-audio';
-      const audioLabel = document.createElement('div');
-      audioLabel.className = 'memory-audio-label';
-      audioLabel.textContent = '♫ A little voice note from ' + name;
-      const audio = document.createElement('audio');
-      audio.controls = true;
-      audio.src = URL.createObjectURL(voiceBlob);
-      audioWrap.append(audioLabel, audio);
-      card.append(audioWrap);
-    }
-    gallery.prepend(card);
-    status.style.display = 'block';
-    status.textContent = 'Preview added! In the live guestbook, this would stay private until Chi & Kel approve it. This demo does not send or save anything. Photos and voice memos will count toward the server-enforced per-IP allowance when Supabase is connected.';
-    form.reset();
-    preview.style.display = 'none';
-    preview.removeAttribute('src');
-    clearVoicePreview();
-    voiceStatus.textContent = 'No recording yet. Your voice note is completely optional.';
-    recordBtn.disabled = false;
-    stopBtn.disabled = true;
-    recordBtn.classList.remove('recording');
-  });
-<script type="module">
-  import { createClient } from
-    "https://esm.sh/@supabase/supabase-js@2";
-
-  const SUPABASE_URL =
-    "https://noqtkcdvmafbizrveqva.supabase.co";
-
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_dZvjAIHgaWSd7lTPQOqXHw_JMZoz9CO";
-
-  const supabase = createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
 </script>
 </body>
 </html>
