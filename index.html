@@ -300,8 +300,45 @@
   const wordCount = document.getElementById('word-count');
 
 
-  // Live memory wall: only approved entries are queried. Media remains in
-  // private buckets and is shown through short-lived signed URLs.
+  // Live memory wall: only approved entries are queried.
+  // Private media is displayed with short-lived signed URLs.
+  function normalizeStoragePath(value, bucketName) {
+    if (typeof value !== 'string') return '';
+    let path = value.trim().replace(/^\/+/, '');
+    // Accept either "file.jpg" or "bucket-name/file.jpg" in the database.
+    if (path.startsWith(`${bucketName}/`)) {
+      path = path.slice(bucketName.length + 1);
+    }
+    return path;
+  }
+
+  async function getSignedMediaUrl(bucketName, rawPath, label, entryId) {
+    const path = normalizeStoragePath(rawPath, bucketName);
+    if (!path) {
+      console.error(`[Guestbook] ${label}: empty storage path`, { entryId, rawPath });
+      return null;
+    }
+
+    const { data, error } = await supabase.storage
+      .from(bucketName)
+      .createSignedUrl(path, 60 * 60);
+
+    if (error || !data?.signedUrl) {
+      console.error(`[Guestbook] ${label}: signed URL failed`, {
+        entryId,
+        bucket: bucketName,
+        databasePath: rawPath,
+        requestedPath: path,
+        message: error?.message || 'No signed URL returned',
+        statusCode: error?.statusCode,
+        error
+      });
+      return null;
+    }
+
+    return data.signedUrl;
+  }
+
   async function loadApprovedMemories() {
     gallery.replaceChildren();
     const loading = document.createElement('div');
@@ -324,7 +361,7 @@
       errorBox.style.columnSpan = 'all';
       errorBox.textContent = 'The memory wall could not load right now. Please refresh in a moment.';
       gallery.append(errorBox);
-      console.error('Could not load approved guestbook entries:', error);
+      console.error('[Guestbook] Could not load approved entries:', error);
       return;
     }
 
@@ -343,28 +380,44 @@
       card.className = 'memory';
       card.style.setProperty('--rot', `${(Math.random() * 3 - 1.5).toFixed(1)}deg`);
 
+      let photoShown = false;
+
       if (entry.photo_path) {
-        const { data: signedPhoto, error: photoError } = await supabase.storage
-          .from('guestbook-photos')
-          .createSignedUrl(entry.photo_path, 60 * 60);
-        if (!photoError && signedPhoto?.signedUrl) {
+        const photoUrl = await getSignedMediaUrl(
+          'guestbook-photos', entry.photo_path, 'PHOTO', entry.id
+        );
+
+        if (photoUrl) {
           const frame = document.createElement('div');
           frame.className = 'memory-photo-note';
           const img = document.createElement('img');
-          img.src = signedPhoto.signedUrl;
+          img.src = photoUrl;
           img.alt = `Photo shared by ${entry.guest_name}`;
           img.loading = 'lazy';
-          const note = document.createElement('p');
-          note.textContent = entry.message;
+          img.addEventListener('error', () => {
+            console.error('[Guestbook] Signed photo URL was created but image failed to load.', {
+              entryId: entry.id,
+              bucket: 'guestbook-photos'
+            });
+            img.alt = 'This photo could not be loaded right now.';
+            img.style.display = 'none';
+            const problem = document.createElement('p');
+            problem.textContent = 'Photo temporarily unavailable.';
+            frame.prepend(problem);
+          }, { once: true });
+
+          const noteText = document.createElement('p');
+          noteText.textContent = entry.message;
           const credit = document.createElement('div');
           credit.className = 'byline';
           credit.textContent = `Shared with love by ${entry.guest_name}`;
-          frame.append(img, note, credit);
+          frame.append(img, noteText, credit);
           card.append(frame);
+          photoShown = true;
         }
       }
 
-      if (!entry.photo_path || !card.firstChild) {
+      if (!photoShown) {
         const note = document.createElement('div');
         note.className = 'note';
         const message = document.createElement('div');
@@ -381,10 +434,11 @@
       }
 
       if (entry.audio_path) {
-        const { data: signedAudio, error: audioError } = await supabase.storage
-          .from('guestbook-audio')
-          .createSignedUrl(entry.audio_path, 60 * 60);
-        if (!audioError && signedAudio?.signedUrl) {
+        const audioUrl = await getSignedMediaUrl(
+          'guestbook-audio', entry.audio_path, 'AUDIO', entry.id
+        );
+
+        if (audioUrl) {
           const wrap = document.createElement('div');
           wrap.className = 'memory-audio';
           const label = document.createElement('div');
@@ -393,11 +447,30 @@
           const audio = document.createElement('audio');
           audio.controls = true;
           audio.preload = 'none';
-          audio.src = signedAudio.signedUrl;
+          audio.src = audioUrl;
+          audio.addEventListener('error', () => {
+            console.error('[Guestbook] Signed audio URL was created but audio failed to load.', {
+              entryId: entry.id,
+              bucket: 'guestbook-audio'
+            });
+            const unavailable = document.createElement('p');
+            unavailable.className = 'memory-audio-label';
+            unavailable.textContent = 'Voice note temporarily unavailable.';
+            wrap.append(unavailable);
+          }, { once: true });
           wrap.append(label, audio);
+          card.append(wrap);
+        } else {
+          const wrap = document.createElement('div');
+          wrap.className = 'memory-audio';
+          const unavailable = document.createElement('div');
+          unavailable.className = 'memory-audio-label';
+          unavailable.textContent = 'Voice note could not be loaded.';
+          wrap.append(unavailable);
           card.append(wrap);
         }
       }
+
       gallery.append(card);
     }
   }
@@ -406,7 +479,7 @@
 
   function countWords(value) {
     const trimmed = value.trim();
-    return trimmed ? trimmed.split(/\\s+/).length : 0;
+    return trimmed ? trimmed.split(/\s+/).length : 0;
   }
 
   messageInput.addEventListener('input', () => {
