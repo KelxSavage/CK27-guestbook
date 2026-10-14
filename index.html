@@ -180,6 +180,194 @@
     html { scroll-behavior:auto; }
     *, *::before, *::after { transition:none !important; }
   }
+
+  /* Chi & Kel scrapbook refresh: purple, ivory and antique gold */
+  :root {
+    --forest: #382044;
+    --forest-deep: #24132e;
+    --sage: #765184;
+    --sage-pale: #f1e8f4;
+    --ivory: #f8f3ee;
+    --paper: #fffdf9;
+    --gold: #c5a15e;
+    --ink: #382d3c;
+    --muted: #827487;
+    --line: #e6d8e8;
+    --shadow: 0 16px 42px rgba(54, 31, 65, .10);
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 8% 6%, rgba(197,161,94,.16), transparent 24rem),
+      radial-gradient(ellipse at 95% 27%, rgba(118,81,132,.13), transparent 28rem),
+      linear-gradient(180deg,#fbf7f2 0%,#f5edf6 52%,#fbf7f2 100%);
+  }
+  .topline { height:5px; background:linear-gradient(90deg,#2c1837,#765184,#d8bd82,#765184,#2c1837); }
+  .page { max-width:1320px; padding-left:clamp(16px,3vw,42px); padding-right:clamp(16px,3vw,42px); }
+  header { padding:54px 0 28px; }
+  header:before {
+    content:"C  ✦  K"; display:grid; place-items:center; width:64px; height:64px; margin:0 auto 18px;
+    border:1px solid #c5a15e; border-radius:50%; color:#4a2c56; background:rgba(255,253,249,.76);
+    font:italic 17px Georgia,serif; letter-spacing:.06em; box-shadow:0 4px 18px rgba(54,31,65,.07);
+  }
+  .eyebrow { color:#765184; letter-spacing:.28em; }
+  h1 { color:#382044; font-size:clamp(48px,6.5vw,82px); letter-spacing:-.035em; }
+  .heart { color:#c5a15e; }
+  .subtitle { color:#766879; font-size:16px; }
+  .flourish { margin-top:20px; }
+  .pill { border-color:#e3d5e7; background:rgba(255,253,249,.8); color:#6f5b78; padding:9px 15px; }
+  .section-head { margin-top:36px; }
+  .section-head h2,.gallery-top h3 { color:#382044; }
+  .small-label { color:#a18348; letter-spacing:.2em; }
+  .workspace { grid-template-columns:minmax(300px,.78fr) minmax(0,1.22fr); gap:clamp(22px,3vw,42px); }
+  .form-paper {
+    border:1px solid #e5d8e8; border-radius:7px; padding:clamp(22px,2.5vw,34px);
+    box-shadow:0 18px 46px rgba(54,31,65,.10), inset 0 0 0 5px rgba(255,255,255,.45);
+    background-color:#fffdf9;
+    background-image:linear-gradient(rgba(255,255,255,.5),rgba(255,255,255,.5)),repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(197,161,94,.08) 32px);
+  }
+  .form-paper:before { background:rgba(197,161,94,.4); }
+  .form-title { color:#382044; font-size:31px; }
+  .form-desc { color:#827487; }
+  label { color:#57445f; }
+  input[type=text],textarea { border-color:#ded0e3; background:#fffdfa; border-radius:6px; }
+  input[type=text]:focus,textarea:focus { border-color:#765184; box-shadow:0 0 0 3px rgba(118,81,132,.14); }
+  .attachment-tile { border-color:#e1d3e8; background:linear-gradient(145deg,#fffdfa,#f5edf8); color:#382044; border-radius:12px; }
+  .attachment-icon { background:#e9ddef; color:#684178; }
+  .attachment-title { color:#382044; }
+  .attachment-chevron { color:#8d6a9e; }
+  .attachment-panel { border-color:#e5d8e8; background:#fdf9fe; }
+  .voice-card { border-color:#e5d8e8; background:linear-gradient(135deg,#fffdfa,#f4ebf7); }
+  .voice-heading,.voice-btn,.voice-timer,.memory-audio-label { color:#684178; }
+  .voice-heading .mic { background:#e9ddef; color:#684178; }
+  .voice-btn { border-color:#cdb9d7; }
+  .voice-btn.recording { background:#684178; border-color:#684178; }
+  .primary { background:#382044; box-shadow:0 4px 0 #24132e; border-radius:5px; }
+  .primary:hover { background:#654276; }
+  .gallery-area { position:relative; min-width:0; padding:0 2px; }
+  .gallery-top { align-items:end; padding:0 3px 15px; border-bottom:1px solid #e5d8e8; margin-bottom:20px; }
+  .gallery-top h3 { font-size:clamp(23px,2.3vw,31px); }
+  .gallery-top span { color:#a18348; letter-spacing:.13em; font-size:9px; }
+  .collage { columns:2; column-gap:22px; }
+  .memory { margin-bottom:24px; padding:0 2px 2px; }
+  .polaroid,.memory-photo-note {
+    border:1px solid #eee5e8; border-radius:2px; background:#fffefa;
+    box-shadow:0 10px 22px rgba(54,31,65,.13),0 2px 4px rgba(54,31,65,.06);
+    transition:transform .22s ease,box-shadow .22s ease;
+  }
+  .memory:hover .polaroid,.memory:hover .memory-photo-note,.memory:hover .note { box-shadow:0 16px 30px rgba(54,31,65,.17); }
+  .polaroid { padding:10px 10px 38px; }
+  .polaroid img,.memory-photo-note img { background:#eee5ef; }
+  .polaroid .caption { color:#60496b; font-size:14px; }
+  .tape { background:rgba(197,161,94,.46); }
+  .memory-photo-note { padding:9px 9px 32px; }
+  .memory-photo-note p { color:#4b3a50; font-size:14px; line-height:1.55; margin:11px 4px 0; overflow-wrap:anywhere; }
+  .memory-photo-note .byline { color:#89778e; font-size:10px; letter-spacing:.025em; margin-top:8px; }
+  .note {
+    border:1px solid rgba(118,81,132,.08); border-radius:2px; padding:23px 20px 20px;
+    background:linear-gradient(145deg,#f0e5f3,#e9dced); color:#4c3555;
+    box-shadow:0 9px 20px rgba(54,31,65,.11);
+  }
+  .note.cream { background:linear-gradient(145deg,#fff8eb,#f4e8d6); color:#55424d; }
+  .note.blush { background:linear-gradient(145deg,#f7edf7,#efe2f0); color:#563f60; }
+  .note:before { background:rgba(255,253,249,.76); }
+  .note .message { font-size:16px; line-height:1.65; }
+  .note .byline { color:#7d6984; font-size:12px; }
+  .note .tiny-heart { color:#b58d48; }
+  .memory-audio { border-top:1px dashed #d9c7df; padding-top:12px; margin:14px 5px 0; }
+  .memory-audio-label { font-size:11px; line-height:1.45; margin-bottom:7px; }
+  .memory-audio audio { width:100%; accent-color:#765184; }
+  .gallery-empty { border:1px dashed #d9c8e1; border-radius:7px; padding:28px 20px; background:rgba(255,253,249,.72); color:#827487; }
+  .bottom-note { color:#827487; line-height:1.8; }
+  .bottom-note .gold { color:#b58d48; }
+  footer { border-color:#e3d6e6; color:#827487; }
+  footer strong { color:#382044; font-size:22px; }
+  .toast { background:#f1e8f4; color:#382044; border-left-color:#765184; border-radius:4px; }
+  .demo-tag { background:#382044; }
+  @media (max-width:760px) {
+    header { padding-top:35px; }
+    header:before { width:56px; height:56px; font-size:15px; margin-bottom:15px; }
+    .workspace { grid-template-columns:1fr; gap:34px; }
+    .gallery-top { margin-bottom:16px; }
+    .collage { columns:2; column-gap:14px; }
+    .memory { margin-bottom:17px; }
+    .memory-photo-note { padding:6px 6px 27px; }
+    .memory-photo-note p { font-size:12px; }
+    .note { padding:18px 14px 15px; }
+    .note .message { font-size:14px; }
+  }
+  @media (max-width:420px) {
+    .collage { column-gap:10px; }
+    .gallery-top span { display:none; }
+    .memory-photo-note p { font-size:11px; }
+    .note { padding:15px 11px 13px; }
+    .note .message { font-size:12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .memory:hover .polaroid,.memory:hover .memory-photo-note,.memory:hover .note { transform:none; }
+  }
+
+
+  /* Subtle scrapbook variation: each photo gets a slightly different handmade mount. */
+  .memory-photo-note {
+    position:relative;
+    border:1px solid #e8dce8;
+    outline:1px solid rgba(255,255,255,.82);
+    outline-offset:-5px;
+    overflow:visible;
+  }
+  .memory-photo-note::before,
+  .memory-photo-note::after {
+    content:"";
+    position:absolute;
+    pointer-events:none;
+  }
+  /* A small strip of washi tape, like a photo tucked into a real scrapbook. */
+  .memory:nth-child(4n+1) .memory-photo-note::before {
+    width:58px; height:17px; top:-7px; left:calc(50% - 29px);
+    background:rgba(197,161,94,.48); transform:rotate(-4deg);
+    box-shadow:0 1px 2px rgba(54,31,65,.05);
+  }
+  /* Lavender paper mount with a soft double border. */
+  .memory:nth-child(4n+2) .memory-photo-note {
+    background:#f0e7f2; padding:13px 13px 34px;
+    border:1px solid #ddcde3;
+    box-shadow:0 10px 22px rgba(54,31,65,.13), inset 0 0 0 4px rgba(255,255,255,.6);
+  }
+  .memory:nth-child(4n+2) .memory-photo-note::before {
+    width:34px; height:34px; top:-5px; right:-5px;
+    background:linear-gradient(135deg,transparent 49%,#d8c3df 50%);
+    filter:drop-shadow(-1px 1px 1px rgba(54,31,65,.08));
+  }
+  /* Warm ivory mount with a tiny corner of gold washi. */
+  .memory:nth-child(4n+3) .memory-photo-note {
+    background:#fff8ec; padding:8px 8px 32px;
+    border:1px solid #e8d7b8;
+    transform:rotate(calc(var(--rot, 1deg) - 1.2deg));
+  }
+  .memory:nth-child(4n+3) .memory-photo-note::before {
+    width:44px; height:13px; top:-5px; left:12px;
+    background:rgba(214,188,130,.48); transform:rotate(-11deg);
+  }
+  /* A neat photo-corner detail for every fourth memory. */
+  .memory:nth-child(4n) .memory-photo-note {
+    background:#fffdf9; padding:11px 11px 35px;
+    border:1px solid #e4d7e6;
+    box-shadow:0 12px 24px rgba(54,31,65,.12), 2px 2px 0 #eadfed, 4px 4px 0 rgba(234,223,237,.6);
+    transform:rotate(calc(var(--rot, 1deg) + .8deg));
+  }
+  .memory:nth-child(4n) .memory-photo-note::after {
+    width:0; height:0; top:-1px; right:-1px;
+    border-top:24px solid #e9dced;
+    border-left:24px solid transparent;
+    filter:drop-shadow(-1px 1px 1px rgba(54,31,65,.06));
+  }
+  .memory-photo-note img { border:1px solid rgba(88,62,95,.08); }
+  .memory-photo-note p { padding:0 2px; }
+  @media (max-width:760px) {
+    .memory:nth-child(4n+2) .memory-photo-note { padding:9px 9px 28px; }
+    .memory:nth-child(4n) .memory-photo-note { padding:7px 7px 29px; }
+  }
+
 </style>
 </head>
 <body>
